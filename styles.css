@@ -165,7 +165,9 @@ nav ul li a:hover::after {
 /* Hero Section */
 .hero {
     height: 80vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(rgba(78, 43, 43, 0.7), rgba(78, 43, 43, 0.7)), url('images/pexels-brett-sayles-1708601.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,7 +183,7 @@ nav ul li a:hover::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(198, 40, 40, 0.2) 0%, rgba(30, 30, 30, 0.8) 100%);
+    background: radial-gradient(circle, rgba(198, 40, 40, 0.2) 0%, rgba(30, 30, 30, 0.5) 100%);
     animation: glowPulse 4s infinite alternate;
 }
 
