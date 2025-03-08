@@ -295,32 +295,124 @@ nav ul li a:hover::after {
     background-color: var(--dark-bg);
 }
 
-.gallery-grid {
-    display: grid;
-    /* 
-        1fr - fractional unit, which is a fraction of the free space in the grid container.
-        2fr - means that the track will take twice as much of the free space as a 1fr track.
-        In this case, each grid item will take up at least 300px of space, and then equally distribute the remaining space.
-    */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+.carousel-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.gallery-item {
-    overflow: hidden;
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    position: relative;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    max-height: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control.prev {
+    left: 20px;
+}
+
+.carousel-control.next {
+    right: 20px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.gallery-item:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+.indicator.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
 }
 
-.gallery-item .image-placeholder {
-    height: 250px;
-    background-color: var(--secondary-color);
+.see-more-link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.see-more-link a {
+    display: inline-block;
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.see-more-link a:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.see-more-link a i {
+    margin-left: 5px;
+    transition: all 0.3s ease;
+}
+
+.see-more-link a:hover i {
+    margin-left: 10px;
 }
 
 /* Testimonials Section */
@@ -545,20 +637,82 @@ footer {
     .about-content,
     .contact-content {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
     
     .about-image {
         order: -1;
     }
     
+    /* Mobile Navigation */
+    header .container {
+        position: relative;
+    }
+    
+    nav {
+        position: relative;
+    }
+    
     nav ul {
         display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--darker-bg);
+        flex-direction: column;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 0 0 4px 4px;
+        padding: 10px 0;
+        z-index: 1000;
+    }
+    
+    nav ul.show {
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 12px 20px;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--light-text);
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    .carousel-control {
+        width: 40px;
+        height: 40px;
     }
 }
 
 @media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+    
+    .hero {
+        height: 70vh;
+    }
+    
     .hero-content h2 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
     }
     
     .section-title {
@@ -566,27 +720,166 @@ footer {
     }
     
     .service-grid,
-    .gallery-grid,
     .testimonial-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .carousel-item img {
+        max-height: 400px;
+    }
+    
+    .carousel-control {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .carousel-control.prev {
+        left: 10px;
+    }
+    
+    .carousel-control.next {
+        right: 10px;
     }
 }
 
-/* Fireplace Glow Effect */
-.hero::before {
-    animation: fireGlow 3s infinite alternate;
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .tagline {
+        font-size: 0.8rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero {
+        height: 60vh;
+    }
+    
+    .carousel-item img {
+        max-height: 300px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px;
+    }
+    
+    .contact-form {
+        padding: 20px;
+    }
+    
+    .contact-info {
+        padding: 20px;
+    }
 }
 
-@keyframes fireGlow {
-    0% {
-        opacity: 0.7;
+/* Mobile menu toggle (hidden by default on desktop) */
+.mobile-menu-toggle {
+    display: none;
+}
+
+/* Christmas Countdown Styles */
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 60px;
+}
+
+.countdown-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .countdown-container {
+        gap: 10px;
     }
-    100% {
-        opacity: 0.9;
+    
+    .countdown-item {
+        min-width: 50px;
+        padding: 8px;
+    }
+    
+    .countdown-number {
+        font-size: 1.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.7rem;
     }
 }
 
-/* Add a subtle texture to the background */
+@media (max-width: 480px) {
+    .countdown-container {
+        gap: 5px;
+    }
+    
+    .countdown-item {
+        min-width: 40px;
+        padding: 5px;
+    }
+    
+    .countdown-number {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.6rem;
+    }
+}
+
+/* Christmas decorative elements */
+.section-title::before {
+    content: '★';
+    color: var(--accent-color);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+}
+
 .services,
 .about,
 .gallery,
@@ -609,15 +902,4 @@ footer {
     background-image: url('https://www.transparenttextures.com/patterns/subtle-dark-vertical.png');
     opacity: 0.05;
     pointer-events: none;
-}
-
-/* Christmas decorative elements */
-.section-title::before {
-    content: '★';
-    color: var(--accent-color);
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
 }

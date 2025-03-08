@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('nav ul');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (navMenu.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navMenu.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('show')) {
+                navMenu.classList.remove('show');
+            }
+        });
+    }
+    
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('nav a, .hero-content a, .about-text a, .footer-links a');
     
@@ -255,6 +285,119 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call the function to create snowflakes
     //createSnowflakes();
     
+    // Initialize carousel functionality
+    function initCarousel() {
+        const carousel = document.querySelector('.carousel-container');
+        if (!carousel) return;
+        
+        const slides = carousel.querySelectorAll('.carousel-item');
+        const indicators = carousel.querySelectorAll('.indicator');
+        const prevBtn = carousel.querySelector('.prev');
+        const nextBtn = carousel.querySelector('.next');
+        
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        
+        // Set initial height based on the active slide
+        function setCarouselHeight() {
+            const activeSlide = slides[currentSlide];
+            const img = activeSlide.querySelector('img');
+            
+            // Wait for image to load to get its actual height
+            if (img.complete) {
+                carousel.style.height = `${activeSlide.offsetHeight}px`;
+            } else {
+                img.onload = function() {
+                    carousel.style.height = `${activeSlide.offsetHeight}px`;
+                };
+            }
+        }
+        
+        // Call initially and on window resize
+        setCarouselHeight();
+        window.addEventListener('resize', setCarouselHeight);
+        
+        // Function to update the active slide
+        function goToSlide(index) {
+            // Handle out of bounds indices
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            
+            // Update current slide index
+            currentSlide = index;
+            
+            // Update slide visibility
+            slides.forEach((slide, i) => {
+                if (i === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            
+            // Update indicators
+            indicators.forEach((indicator, i) => {
+                if (i === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Update carousel height for the new slide
+            setCarouselHeight();
+        }
+        
+        // Event listeners for controls
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+            });
+        }
+        
+        // Event listeners for indicators
+        indicators.forEach((indicator, i) => {
+            indicator.addEventListener('click', () => {
+                goToSlide(i);
+            });
+        });
+        
+        // Auto advance slides every 5 seconds
+        let slideInterval = setInterval(() => {
+            goToSlide(currentSlide + 1);
+        }, 5000);
+        
+        // Pause auto-advance when hovering over carousel
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        // Resume auto-advance when mouse leaves
+        carousel.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => {
+                goToSlide(currentSlide + 1);
+            }, 5000);
+        });
+        
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                goToSlide(currentSlide - 1);
+            } else if (e.key === 'ArrowRight') {
+                goToSlide(currentSlide + 1);
+            }
+        });
+    }
+    
+    // Call the function to initialize carousel
+    initCarousel();
+    
     // Add a warm glow effect to the hero section
     function addWarmGlow() {
         const hero = document.querySelector('.hero');
@@ -300,22 +443,49 @@ document.addEventListener('DOMContentLoaded', function() {
         hero.style.backgroundPosition = `center ${scrollPosition * 0.4}px`;
     });
     
-    // Add countdown to Christmas
+    // Add Christmas countdown
     function updateChristmasCountdown() {
-        const countdownElement = document.createElement('div');
-        countdownElement.className = 'christmas-countdown';
-        countdownElement.style.position = 'absolute';
-        countdownElement.style.bottom = '20px';
-        countdownElement.style.right = '20px';
-        countdownElement.style.background = 'rgba(30, 30, 30, 0.8)';
-        countdownElement.style.padding = '15px';
-        countdownElement.style.borderRadius = '8px';
-        countdownElement.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-        countdownElement.style.zIndex = '1004';
+        const countdownElement = document.querySelector('.hero-content');
+        if (!countdownElement) return;
         
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            hero.appendChild(countdownElement);
+        // Create countdown container if it doesn't exist
+        let countdownContainer = document.querySelector('.countdown-container');
+        if (!countdownContainer) {
+            // Add countdown title
+            const countdownTitle = document.createElement('div');
+            countdownTitle.className = 'countdown-title';
+            countdownTitle.innerHTML = '<h3>Christmas Countdown</h3>';
+            countdownTitle.style.color = 'var(--accent-color)';
+            countdownTitle.style.textAlign = 'center';
+            countdownTitle.style.marginTop = '20px';
+            countdownTitle.style.fontSize = '1.2rem';
+            
+            // Create countdown container
+            countdownContainer = document.createElement('div');
+            countdownContainer.className = 'countdown-container';
+            
+            // Create countdown items
+            const items = ['days', 'hours', 'mins', 'secs'];
+            items.forEach(item => {
+                const countdownItem = document.createElement('div');
+                countdownItem.className = 'countdown-item';
+                
+                const numberSpan = document.createElement('span');
+                numberSpan.className = 'countdown-number';
+                numberSpan.id = `countdown-${item}`;
+                numberSpan.textContent = '0';
+                
+                const labelSpan = document.createElement('span');
+                labelSpan.className = 'countdown-label';
+                labelSpan.textContent = item.charAt(0).toUpperCase() + item.slice(1);
+                
+                countdownItem.appendChild(numberSpan);
+                countdownItem.appendChild(labelSpan);
+                countdownContainer.appendChild(countdownItem);
+            });
+            
+            countdownElement.appendChild(countdownTitle);
+            countdownElement.appendChild(countdownContainer);
         }
         
         function updateCountdown() {
@@ -330,37 +500,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const diff = christmasDate - now;
             
-            // Convert to days, hours, minutes, seconds
+            // Calculate time units
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            countdownElement.innerHTML = `
-                <h4 style="color: var(--accent-color); margin-bottom: 10px; font-family: var(--font-heading);">Christmas Countdown</h4>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: bold;">${days}</div>
-                        <div style="font-size: 0.8rem;">Days</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: bold;">${hours}</div>
-                        <div style="font-size: 0.8rem;">Hours</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: bold;">${minutes}</div>
-                        <div style="font-size: 0.8rem;">Mins</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: bold;">${seconds}</div>
-                        <div style="font-size: 0.8rem;">Secs</div>
-                    </div>
-                </div>
-            `;
+            // Update countdown display
+            document.getElementById('countdown-days').textContent = days;
+            document.getElementById('countdown-hours').textContent = hours;
+            document.getElementById('countdown-mins').textContent = minutes;
+            document.getElementById('countdown-secs').textContent = seconds;
         }
         
-        // Update immediately and then every second
+        // Initial update
         updateCountdown();
+        
+        // Update every second
         setInterval(updateCountdown, 1000);
     }
     

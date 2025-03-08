@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>North Pole Magic - Professional Santa Claus Services</title>
+    <title>Professional Santa Claus Services</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -12,10 +12,13 @@
     <header>
         <div class="container">
             <div class="logo">
-                <h1>North Pole Magic</h1>
-                <p class="tagline">Professional Santa Claus Services</p>
+                <h1>Professional Santa Claus</h1>
+                <p class="tagline">Bringing the Holiday Cheer</p>
             </div>
             <nav>
+                <button type="button" class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
@@ -48,11 +51,6 @@
                     <p>Santa will visit your home for a magical experience. Perfect for family gatherings and Christmas Eve surprises.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-building"></i>
-                    <h3>Corporate Events</h3>
-                    <p>Bring holiday cheer to your office party or corporate event with a special appearance from Santa.</p>
-                </div>
-                <div class="service-card">
                     <i class="fas fa-gift"></i>
                     <h3>Gift Delivery</h3>
                     <p>Santa will personally deliver and present gifts to your loved ones with that special North Pole touch.</p>
@@ -71,7 +69,7 @@
             <div class="about-content">
                 <div class="about-text">
                     <h2 class="section-title">Meet Santa</h2>
-                    <p>With over 20 years of spreading Christmas joy, our Santa brings authentic holiday magic to every event. Featuring a real beard, traditional velvet suit, and a hearty "Ho Ho Ho!" that will delight children and adults alike.</p>
+                    <p>With over 10 years of spreading Christmas joy, our Santa brings authentic holiday magic to every event. Featuring a real beard, traditional velvet suit, and a hearty "Ho Ho Ho!" that will delight children and adults alike.</p>
                     <p>Santa loves sharing stories from the North Pole, singing Christmas carols, and creating personalized experiences for each child. His warm personality and attention to detail make every visit special and memorable.</p>
                     <a href="#contact" class="btn">Book an Experience</a>
                 </div>
@@ -85,18 +83,32 @@
     <section id="gallery" class="gallery">
         <div class="container">
             <h2 class="section-title">Magical Moments</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images\santa_cottage.jpg" alt="Santa at the Cottage" width="250" height="250" style="object-fit: cover; object-position: center;">
+            <div class="carousel-container">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="images\carousel-images\santa_cottage.jpg" alt="Santa at the Cottage">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images\carousel-images\santa_modern_cabin.jpg" alt="Santa at the Modern Cabin">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images\carousel-images\santa_and_elf.jpg" alt="Santa and the Elf">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images\carousel-images\santa_checking_list.jpg" alt="Santa Checking List">
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="images\santa_modern_cabin.jpg" alt="Santa at the Modern Cabin" width="250" height="250" style="object-fit: cover; object-position: center;">
-                </div>
-                <div class="gallery-item">
-                    <img src="images\santa_and_elf.jpg" alt="Santa and the Elf" width="250" height="250" style="object-fit: cover; object-position: center;">   
-                </div>
-                <div class="gallery-item">
-                    <img src="images\santa_checking_list.jpg" alt="Santa Checking List" width="250" height="250" style="object-fit: cover; object-position: center;">
+                <button class="carousel-control prev" aria-label="Previous image">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-control next" aria-label="Next image">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+                    <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+                    <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+                    <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
                 </div>
             </div>
         </div>
@@ -108,19 +120,29 @@
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <div class="quote"><i class="fas fa-quote-left"></i></div>
-                    <p>Santa's visit made our Christmas Eve magical! The children were absolutely thrilled, and even the adults were enchanted. We'll definitely be booking again next year!</p>
-                    <p class="testimonial-author">- The Johnson Family</p>
+                    <p>Absolute amazing experience. 100% recommend arranging for Santa to come visit your family. My boys were blown away by his surprise visit. They couldn't believe that they met the real Santa and how much he knew about them. I think it was made even more real by the fact that it is February so they thought he'd be on holiday but he turned up to see them. This experience was priceless and gave us memories to last us a life time. They chatted to Santa and got to ask lots of questions. He's brilliant! Highly recommend!!</p>
+                    <p class="testimonial-author">- The Chater Family</p>
                 </div>
                 <div class="testimonial-card">
                     <div class="quote"><i class="fas fa-quote-left"></i></div>
-                    <p>Our corporate holiday party was a huge success thanks to Santa. His interactive storytelling and genuine warmth brought joy to all our employees and their families.</p>
-                    <p class="testimonial-author">- Bright Star Industries</p>
+                    <p>We had the absolute pleasure to have Santa Claus visit us in our Appartement in Rovaniemi during our holiday in February.
+                        My daughter was absolutely thrilled- everything felt so real for her!
+                        Santa brought a nice elf with him and a small gift for our kid.
+                        If you want to make the magic of Christmas real for your children, this Santa Claus is the absolute best choice!
+                        He prepares for every visit, knows a lot about the kids, asks them questions about their hobbies and friends and knows so much about each child!
+                        Then they get the possibility to ask Santa whatever they want and he has wonderful aswers for them.
+                        The children were so happy- and all adults had tears in their eyes because the interaction was so sweet and kind!
+                        I can really recommend to book a visit from Santa Claus if you have the chance to do so!</p>
+                    <p class="testimonial-author">- The Just Family</p>
                 </div>
                 <div class="testimonial-card">
                     <div class="quote"><i class="fas fa-quote-left"></i></div>
-                    <p>Santa remembered all the details about our children from our pre-visit form. The personalized experience made the kids believe in the magic of Christmas all over again!</p>
-                    <p class="testimonial-author">- The Williams Family</p>
+                    <p>A wonderful Santa experience. Santa is so nice and chats with each child giving them plenty if time. He knew the special little details about them making it extra special.  My kids couldn't believe they met the real Santa and that he had been out looking for them!! If you want a special memorable Santa experience this is exactly it. Thank you 🎅</p>
+                    <p class="testimonial-author">- The Stack Family</p>
                 </div>
+            </div>
+            <div class="see-more-link">
+                <a href="https://www.facebook.com/santaprofessional/reviews" target="_blank" rel="noopener noreferrer">See more reviews <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -152,7 +174,6 @@
                             <select id="service" name="service" required>
                                 <option value="">Select a Service</option>
                                 <option value="home">Home Visit</option>
-                                <option value="corporate">Corporate Event</option>
                                 <option value="gift">Gift Delivery</option>
                                 <option value="photo">Photo Session</option>
                             </select>
@@ -166,13 +187,12 @@
                 </div>
                 <div class="contact-info">
                     <h3>Contact Information</h3>
-                    <p><i class="fas fa-phone"></i> (555) 123-SANTA</p>
-                    <p><i class="fas fa-envelope"></i> santa@northpolemagic.com</p>
+                    <p><i class="fas fa-phone"></i> (+358) 45 6762027</p>
+                    <p><i class="fas fa-envelope"></i> santaprofessional@gmail.com</p>
                     <p><i class="fas fa-clock"></i> Available: Nov 15 - Dec 31</p>
                     <div class="booking-info">
                         <h4>Booking Information</h4>
                         <p>Early booking is recommended as Santa's schedule fills quickly, especially for Christmas Eve and weekends in December.</p>
-                        <p>A 50% deposit is required to secure your booking, with the balance due one week before your scheduled visit.</p>
                     </div>
                 </div>
             </div>
@@ -198,7 +218,7 @@
                 <div class="footer-social">
                     <h4>Follow Santa</h4>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/santaprofessional"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
@@ -206,7 +226,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 North Pole Magic. All rights reserved.</p>
+                <p>&copy; 2025 Santa Professional. All rights reserved.</p>
             </div>
         </div>
     </footer>
