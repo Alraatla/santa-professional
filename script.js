@@ -1,56 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navMenu = document.querySelector('nav ul');
-    
-    if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('show');
-        });
+    const navMenu = document.querySelector('.mobile-nav');
+
+    mobileMenuToggle.addEventListener('click', function() {
+        navMenu.classList.add('active');
         
-        // Close mobile menu when clicking on a link
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                if (navMenu.classList.contains('show')) {
-                    navMenu.classList.remove('show');
-                }
+        // Add index for staggered animation
+        const navLinks = document.querySelectorAll('.mobile-nav-item');
+        navLinks.forEach((link, index) => {
+            // link.style.setProperty('--item-index', index);
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
             });
         });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideNav = navMenu.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('show')) {
-                navMenu.classList.remove('show');
-            }
-        });
-    }
-    
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('nav a, .hero-content a, .about-text a, .footer-links a');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Only apply to links that start with #
-            if (this.getAttribute('href').startsWith('#')) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80, // Offset for fixed header
-                        behavior: 'smooth'
-                    });
-                }
-            }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.mobile-nav') && 
+            !event.target.closest('.mobile-menu-toggle') && 
+            navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+        }
+    });
+
+    // Close menu when clicking on a link
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-item a');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
         });
     });
-    
     // Cursor snowflake effect
     function createCursorSnowflakes() {
         let mouseX = 0;
@@ -223,67 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Add snow effect to the hero section
-    function createSnowflakes() {
-        const hero = document.querySelector('.hero');
-        if (!hero) return;
-        
-        let isMouseInsideHero = false;
-        hero.addEventListener('mouseover', () => {
-            isMouseInsideHero = true;
-        });
-        
-        hero.addEventListener('mouseout', () => {
-            isMouseInsideHero = false;
-        });
-        
-        for (let i = 0; i < 50; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.className = 'snowflake';
-            snowflake.style.position = 'absolute';
-            snowflake.style.top = '-10px';
-            snowflake.style.left = Math.random() * 100 + '%';
-            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
-            snowflake.style.fontSize = (Math.random() * 10 + 5) + 'px';
-            snowflake.style.color = 'white';
-            snowflake.style.zIndex = '1';
-            snowflake.innerHTML = '❄';
-            
-            // Set animation properties
-            snowflake.style.animation = `snowfall ${Math.random() * 5 + 5}s linear infinite`;
-            
-            hero.appendChild(snowflake);
-            
-            // Animate only if mouse is inside the hero section
-            function animate() {
-                if (isMouseInsideHero) {
-                    snowflake.style.animationPlayState = 'running';
-                } else {
-                    snowflake.style.animationPlayState = 'paused';
-                }
-            }
-            
-            window.addEventListener('mousemove', animate);
-        }
-        
-        // Add keyframes for snowfall animation
-        const styleSheet = document.styleSheets[0];
-        const keyframes = `
-        @keyframes snowfall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                transform: translateY(${hero.offsetHeight}px) rotate(360deg);
-            }
-        }`;
-        
-        styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-    }
-    
-    // Call the function to create snowflakes
-    //createSnowflakes();
     
     // Initialize carousel functionality
     function initCarousel() {
