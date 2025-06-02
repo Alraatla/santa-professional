@@ -9,6 +9,7 @@
     --dark-text: #333333;
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Roboto', sans-serif;
+    --header-height: 100px; /* Adding header height variable for consistency */
 }
 
 * {
@@ -19,6 +20,10 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: var(--header-height);
 }
 
 body {
@@ -579,7 +584,7 @@ nav ul li a:hover::after {
 /* Contact Section */
 .contact {
     padding: 80px 0;
-    background-color: var(--dark-bg);
+    background-color: var(--darker-bg);
 }
 
 .contact-content {
@@ -588,13 +593,6 @@ nav ul li a:hover::after {
     gap: 50px;
 }
 
-.contact-form {
-    background-color: var(--darker-bg);
-    display: none;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
 
 .form-group {
     margin-bottom: 20px;
@@ -627,7 +625,7 @@ nav ul li a:hover::after {
 }
 
 .contact-info {
-    background-color: var(--darker-bg);
+    background-color: var(--dark-bg);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -950,10 +948,6 @@ footer {
     .form-group select,
     .form-group textarea {
         padding: 10px;
-    }
-    
-    .contact-form {
-        padding: 20px;
     }
     
     .contact-info {
