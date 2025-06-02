@@ -155,54 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call the function to enable cursor snowflakes
     createCursorSnowflakes();
     
-    // Form validation
-    const contactForm = document.querySelector('.contact-form form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Simple validation
-            let isValid = true;
-            const requiredFields = contactForm.querySelectorAll('[required]');
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.style.borderColor = 'var(--primary-color)';
-                } else {
-                    field.style.borderColor = '#444';
-                }
-            });
-            
-            if (isValid) {
-                // Normally would submit the form here
-                // For demo purposes, show a success message
-                const formGroups = contactForm.querySelectorAll('.form-group');
-                const submitButton = contactForm.querySelector('button[type="submit"]');
-                
-                formGroups.forEach(group => {
-                    group.style.display = 'none';
-                });
-                
-                submitButton.style.display = 'none';
-                
-                const successMessage = document.createElement('div');
-                successMessage.className = 'success-message';
-                successMessage.innerHTML = `
-                    <i class="fas fa-check-circle" style="font-size: 3rem; color: #4CAF50; margin-bottom: 20px;"></i>
-                    <h3>Thank You for Your Request!</h3>
-                    <p>Santa has received your message and will get back to you within 24 hours.</p>
-                    <p>Happy Holidays!</p>
-                `;
-                
-                successMessage.style.textAlign = 'center';
-                successMessage.style.padding = '30px';
-                
-                contactForm.appendChild(successMessage);
-            }
-        });
-    }
     
     // Initialize carousel functionality
     function initCarousel() {
@@ -316,42 +268,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Call the function to initialize carousel
     initCarousel();
-    
-    // Add a warm glow effect to the hero section
-    function addWarmGlow() {
-        const hero = document.querySelector('.hero');
-        if (!hero) return;
-        
-        const glowOverlay = document.createElement('div');
-        glowOverlay.className = 'glow-overlay';
-        glowOverlay.style.position = 'absolute';
-        glowOverlay.style.top = '0';
-        glowOverlay.style.left = '0';
-        glowOverlay.style.width = '100%';
-        glowOverlay.style.height = '100%';
-        glowOverlay.style.background = 'radial-gradient(circle at bottom, rgba(255, 160, 0, 0.7), transparent 70%)';
-        glowOverlay.style.animation = 'glowPulse 4s infinite alternate';
-        glowOverlay.style.zIndex = '1002';
-        
-        hero.appendChild(glowOverlay);
-        
-        // Add keyframes for glow pulse animation
-        const styleSheet = document.styleSheets[0];
-        const keyframes = `
-        @keyframes glowPulse {
-            0% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 0.8;
-            }
-        }`;
-        
-        styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-    }
-    
-    // Call the function to add warm glow
-    // addWarmGlow();
     
     // Add parallax effect to the hero section
     window.addEventListener('scroll', function() {
